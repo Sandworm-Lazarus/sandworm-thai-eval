@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "project": "sandworm-thai-eval",
+  "checked_at": "2026-11-11T11:03:24.606Z",
+  "runtime": "v24.22.1",
+  "result": "pass",
+  "tests": 40,
+  "passed": 40,
+  "failed": 0,
+  "source_manifest_sha256": "ee3aac1bd929e397a246918e79f76f3f6e6de30ca24399933bbdc90d5f62d8cf",
+  "files": [
+    {
+      "path": "dist/app.js",
+      "sha256": "2abcf92716f97231aaad5c19b04011ef86d6e4a06ca9f95d885504f7b73eb508"
+    },
+    {
+      "path": "dist/engine.js",
+      "sha256": "7dcf1dcda00aee1844254db88ca6a68f8959936b2278e9fb03a2c055e18eb959"
+    },
+    {
+      "path": "dist/examples.js",
+      "sha256": "882ef49b5d7d84773af1b7574e9def8ff631cf03c545880e91e3a5073ea25065"
+    },
+    {
+      "path": "dist/fonts/Anuphan-OFL.txt",
+      "sha256": "cbc57ac0dddda1b70f246a16358fc3c2a32628a23a6d10ef64f746141d3fb159"
+    },
+    {
+      "path": "dist/fonts/Chakra-Petch-OFL.txt",
+      "sha256": "13831d02389d917d22fcfa6c79f98f8acbf61d230add0e73a4d4dc5f3bfb9e56"
+    },
+    {
+      "path": "dist/fonts/JetBrains-Mono-OFL.txt",
+      "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "26494639a84d35f6edeb9230c609787bf87f69f0b79c8fbef65f48d83c2bf021"
+    },
+    {
+      "path": "dist/mark.svg",
+      "sha256": "ee731288307e122e75090d2b39fd735667292e8b069b430b8d760a2a3c3cd5ac"
+    },
+    {
+      "path": "dist/network.svg",
+      "sha256": "31596a6bbc4dea95c4abc8edd7b98bd9f00bad7ef797681de1b0574cb80f0e38"
+    },
+    {
+      "path": "dist/styles.css",
+      "sha256": "065cf3db2797c91bac780f7240aeb54d041d21957843e68565e545e9b858f276"
+    },
+    {
+      "path": "tests/controller.test.cjs",
+      "sha256": "453af740d2b764e58fe1fdf3b04c0b499e48b87b193478a9afd04c1bde4ed87f"
+    },
+    {
+      "path": "tests/engine.test.cjs",
+      "sha256": "70ab90af9c9528b2d81debd743d617c8283a26234f753b0ce96822e107169fc1"
+    },
+    {
+      "path": "examples/candidates.json",
+      "sha256": "3077388a350bf538fa063ab28cdf4c7ed0241dfa00ba613d1b45045be4da5468"
+    },
+    {
+      "path": "examples/dataset.json",
+      "sha256": "fc28cfc61af4d3857f4633ac29e1fb5066878f8da2315d232c61cd38452026dd"
+    },
+    {
+      "path": "examples/expected-report.json",
+      "sha256": "68b524e119ac34a51a280fff192185f60057478716d095f20e9024ddd6252002"
+    },
+    {
+      "path": "examples/run.cjs",
+      "sha256": "b7d7321ec67457bf25ebfe786497fd30c40f77ddd319c4f8f4de13589173f1c1"
+    },
+    {
+      "path": "scripts/validate.cjs",
+      "sha256": "621742105969e8a8fdba38dc87436a75e5dd5b134efd27b6094f93a7922270e2"
+    },
+    {
+      "path": "scripts/verify.cjs",
+      "sha256": "69630303dd2a7cb483d5ab02cfb61f9b9cd20981c45882dbf07a0ce0e30f5c6c"
+    }
+  ],
+  "note": "Local execution only. SHA-256 detects changed bytes, not authenticity or a security certification. Hosted CI status is separate."
+}

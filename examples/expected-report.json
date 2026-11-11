@@ -1,0 +1,196 @@
+{
+  "tool": "sandworm-thai-eval",
+  "toolVersion": "0.1.0",
+  "schemaVersion": 1,
+  "datasetId": "thai-synthetic-v1",
+  "normalization": {
+    "nfc": true,
+    "whitespace": true
+  },
+  "scoring": "All assertions per case must pass. Missing outputs fail. Weighted score = passed weight / total dataset weight × 100.",
+  "models": [
+    {
+      "modelId": "synthetic-A",
+      "totalCases": 5,
+      "passedCases": 5,
+      "missingCases": 0,
+      "passedWeight": 10,
+      "totalWeight": 10,
+      "score": 100,
+      "cases": [
+        {
+          "caseId": "greeting",
+          "weight": 1,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "exact",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "caseId": "support",
+          "weight": 2,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "contains",
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "rule": "notContains",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "caseId": "json-answer",
+          "weight": 2,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "json",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "caseId": "grounding",
+          "weight": 3,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "contains",
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "rule": "citations",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "caseId": "unknown",
+          "weight": 2,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "exact",
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "rule": "abstain",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelId": "synthetic-B",
+      "totalCases": 5,
+      "passedCases": 1,
+      "missingCases": 1,
+      "passedWeight": 1,
+      "totalWeight": 10,
+      "score": 10,
+      "cases": [
+        {
+          "caseId": "greeting",
+          "weight": 1,
+          "passed": true,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "exact",
+              "passed": true,
+              "reason": "matched"
+            }
+          ]
+        },
+        {
+          "caseId": "support",
+          "weight": 2,
+          "passed": false,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "contains",
+              "passed": false,
+              "reason": "required_phrase_missing"
+            },
+            {
+              "rule": "notContains",
+              "passed": false,
+              "reason": "forbidden_phrase_present"
+            }
+          ]
+        },
+        {
+          "caseId": "json-answer",
+          "weight": 2,
+          "passed": false,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "json",
+              "passed": false,
+              "reason": "json_object_or_key_mismatch"
+            }
+          ]
+        },
+        {
+          "caseId": "grounding",
+          "weight": 3,
+          "passed": false,
+          "missing": false,
+          "checks": [
+            {
+              "rule": "contains",
+              "passed": true,
+              "reason": "matched"
+            },
+            {
+              "rule": "citations",
+              "passed": false,
+              "reason": "citation_set_mismatch"
+            }
+          ]
+        },
+        {
+          "caseId": "unknown",
+          "weight": 2,
+          "passed": false,
+          "missing": true,
+          "checks": [
+            {
+              "rule": "output",
+              "passed": false,
+              "reason": "missing_output"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "algorithm": "SHA-256",
+    "hashScope": "Exact UTF-8 input strings; formatting changes the digest.",
+    "datasetSha256": "fc28cfc61af4d3857f4633ac29e1fb5066878f8da2315d232c61cd38452026dd",
+    "candidatesSha256": "3077388a350bf538fa063ab28cdf4c7ed0241dfa00ba613d1b45045be4da5468"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "id": "synthetic-A",
+      "outputs": [
+        {
+          "caseId": "greeting",
+          "text": " สวัสดีครับ "
+        },
+        {
+          "caseId": "support",
+          "text": "กรุณาตรวจสอบเลขคำสั่งซื้อ"
+        },
+        {
+          "caseId": "json-answer",
+          "text": "{\"status\":\"ok\",\"คำตอบ\":\"พร้อมใช้งาน\"}"
+        },
+        {
+          "caseId": "grounding",
+          "text": "เมืองหลวงคือกรุงเทพมหานคร",
+          "citations": [
+            "city-guide-01"
+          ]
+        },
+        {
+          "caseId": "unknown",
+          "text": "ข้อมูลไม่เพียงพอ",
+          "abstained": true
+        }
+      ]
+    },
+    {
+      "id": "synthetic-B",
+      "outputs": [
+        {
+          "caseId": "greeting",
+          "text": "สวัสดีครับ"
+        },
+        {
+          "caseId": "support",
+          "text": "กรุณาส่งรหัสผ่าน"
+        },
+        {
+          "caseId": "json-answer",
+          "text": "{\"status\":\"ok\"}"
+        },
+        {
+          "caseId": "grounding",
+          "text": "เมืองหลวงคือกรุงเทพมหานคร",
+          "citations": [
+            "unverified-source"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "thai-synthetic-v1",
+  "cases": [
+    {
+      "id": "greeting",
+      "weight": 1,
+      "assertions": {
+        "exact": "สวัสดีครับ"
+      }
+    },
+    {
+      "id": "support",
+      "weight": 2,
+      "assertions": {
+        "contains": [
+          "ตรวจสอบ",
+          "เลขคำสั่งซื้อ"
+        ],
+        "notContains": [
+          "รหัสผ่าน"
+        ]
+      }
+    },
+    {
+      "id": "json-answer",
+      "weight": 2,
+      "assertions": {
+        "json": {
+          "requiredKeys": [
+            "status",
+            "คำตอบ"
+          ]
+        }
+      }
+    },
+    {
+      "id": "grounding",
+      "weight": 3,
+      "assertions": {
+        "contains": [
+          "กรุงเทพมหานคร"
+        ],
+        "citations": [
+          "city-guide-01"
+        ]
+      }
+    },
+    {
+      "id": "unknown",
+      "weight": 2,
+      "assertions": {
+        "exact": "ข้อมูลไม่เพียงพอ",
+        "abstain": true
+      }
+    }
+  ]
+}
