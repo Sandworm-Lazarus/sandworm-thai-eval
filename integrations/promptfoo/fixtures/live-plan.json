@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "model": "your-self-hosted-model",
+  "responseFormat": "sandworm-json",
+  "variants": [
+    {"id": "prompt-v1", "instruction": "ตอบภาษาไทยตามคำถาม ส่งเฉพาะ JSON object ที่มี text (ข้อความคำตอบ), citations (รายการ ID แหล่งอ้างอิง), abstained (true เมื่อไม่มีข้อมูลเพียงพอ)"},
+    {"id": "prompt-v2", "instruction": "ตอบภาษาไทยอย่างกระชับ ทักทายด้วย สวัสดีครับ อ้างเฉพาะแหล่งที่ให้มา ถ้าไม่ทราบให้บอกว่า ข้อมูลไม่เพียงพอ ส่งเฉพาะ JSON object ที่มี text, citations และ abstained"}
+  ],
+  "inputs": [
+    {"caseId": "greeting", "text": "สวัสดี ช่วยทักทายเป็นภาษาไทย"},
+    {"caseId": "grounding", "text": "แหล่ง city-guide-01 ระบุว่าเมืองหลวงของไทยคือกรุงเทพมหานคร เมืองหลวงของไทยคืออะไร?"}
+  ],
+  "limits": {"maxCalls": 4, "maxOutputTokens": 256, "timeoutMs": 30000}
+}

@@ -22,6 +22,7 @@ function setup(overrides = {}) {
   const downloads = [];
   const context = vm.createContext({ document, ThaiEval: { ...engine, ...overrides }, TextDecoder, Blob, setTimeout: fn => fn(), URL: { createObjectURL: blob => { downloads.push(blob); return 'blob:synthetic'; }, revokeObjectURL() {} } });
   vm.runInContext(fs.readFileSync(require.resolve('../dist/examples.js'), 'utf8'), context);
+  vm.runInContext(fs.readFileSync(require.resolve('../dist/promptfoo-bundle.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(require.resolve('../dist/app.js'), 'utf8'), context);
   return { n: id => nodes.get(id), downloads };
 }
@@ -33,3 +34,15 @@ test('stale asynchronous evaluation never overwrites later edits', async () => {
 test('stale asynchronous file load does not overwrite manual input', async () => { let finish; const s = setup(); const buffer = new Promise(resolve => { finish = resolve; }); s.n('dataset-file').files = [{ name: 'sample.json', size: 2, arrayBuffer: () => buffer }]; const pending = s.n('dataset-file').fire('change'); s.n('dataset').value = 'manual'; await s.n('dataset').fire('input'); finish(new TextEncoder().encode('{}').buffer); await pending; assert.equal(s.n('dataset').value, 'manual'); });
 test('invalid UTF-8, oversized files, and malformed JSON are rejected without raw payload', async () => { const s = setup(); s.n('dataset-file').files = [{ name: 'sample.json', size: 1, arrayBuffer: async () => new Uint8Array([0xff]).buffer }]; await s.n('dataset-file').fire('change'); assert.equal(s.n('error').hidden, false); s.n('dataset-file').files = [{ name: 'sample.json', size: 1048577, arrayBuffer: async () => { throw new Error('must not read'); } }]; await s.n('dataset-file').fire('change'); assert(s.n('error').textContent.includes('1 MiB')); s.n('dataset').value = '{SYNTHETIC-SECRET'; await s.n('evaluate-btn').fire('click'); assert(!s.n('error').textContent.includes('SECRET')); assert.equal(s.n('export-btn').disabled, true); });
 test('switching model updates detailed cases without recalculating scores', async () => { const s = setup(); await demo(s); s.n('model-select').value = 'synthetic-B'; await s.n('model-select').fire('change'); assert.equal(s.n('case-results').children.filter(n => n.className.includes('fail')).length, 4); });
+async function importRunner(s, value=require('../integrations/promptfoo/fixtures/live-bundle.json')) {
+ const raw=JSON.stringify(value);s.n('runner-file').files=[{name:'run.json',size:Buffer.byteLength(raw),arrayBuffer:async()=>new TextEncoder().encode(raw).buffer}];await s.n('runner-file').fire('change');
+}
+test('API import recomputes scores, displays version metrics, exports no raw answers',async()=>{
+ const s=setup();await importRunner(s);assert.equal(s.n('best-score').textContent,'100.0%');assert.equal(s.n('model-count').textContent,2);assert.equal(s.n('summary-body').children[0].children[1].textContent,'25.00%');assert.equal(s.n('summary-body').children[0].children[5].textContent,'2 / 0');assert.equal(s.n('summary-body').children[0].children[6].textContent,'40 / 20');assert.equal(s.n('runner-export').disabled,false);assert(s.n('runner-status').textContent.includes('mock API'));
+ await s.n('runner-export').fire('click');const result=JSON.parse(await s.downloads[0].text());assert.equal(result.kind,'sandworm-promptfoo-reviewed-report');assert(!JSON.stringify(result).includes('สวัสดีครับ'));assert.equal(result.run.variants[0].costUsd,null);
+});
+test('input edit invalidates imported runner metrics and export',async()=>{const s=setup();await importRunner(s);await s.n('candidates').fire('input');assert.equal(s.n('runner-export').disabled,true);await s.n('runner-export').fire('click');assert.equal(s.downloads.length,0);assert.equal(s.n('summary-body').children.length,0);});
+test('malformed runner bundle clears old results without echoing payload',async()=>{const s=setup();await demo(s);await importRunner(s,{private:'DO_NOT_ECHO_THIS'});assert.equal(s.n('export-btn').disabled,true);assert.equal(s.n('runner-export').disabled,true);assert.equal(s.n('error').hidden,false);assert(!s.n('error').textContent.includes('DO_NOT_ECHO_THIS'));});
+test('runner import stale after manual edit cannot replace input or results',async()=>{
+ const s=setup();let finish;const pendingFile=new Promise(resolve=>finish=resolve);s.n('runner-file').files=[{name:'run.json',size:3000,arrayBuffer:()=>pendingFile}];const pending=s.n('runner-file').fire('change');s.n('dataset').value='manual';await s.n('dataset').fire('input');finish(new TextEncoder().encode(JSON.stringify(require('../integrations/promptfoo/fixtures/live-bundle.json'))).buffer);await pending;assert.equal(s.n('dataset').value,'manual');assert.equal(s.n('runner-export').disabled,true);
+});

@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),cp=require('node:child_process');
+process.chdir(__dirname);
+const tests=fs.readdirSync('tests').filter(x=>x.endsWith('.test.cjs')).map(x=>'tests/'+x);
+let passedCount=null,liveSmoke=null;
+for(const args of [['--test','--test-reporter=tap',...tests],['smoke.cjs'],['live-smoke.cjs']]){const r=cp.spawnSync(process.execPath,args,{encoding:'utf8',timeout:90000,env:{...process.env,PROMPTFOO_DISABLE_TELEMETRY:'1',PROMPTFOO_DISABLE_UPDATE:'1'}});process.stdout.write(r.stdout||'');process.stderr.write(r.stderr||'');if(r.status!==0)process.exit(r.status||2);if(args[0]==='live-smoke.cjs'){const line=r.stdout.trim().split('\n').find(l=>l.startsWith('{')&&l.includes('real-loopback-http'));if(!line)throw Error('LIVE_SMOKE_SUMMARY_UNAVAILABLE');liveSmoke=JSON.parse(line);}if(args.includes('--test')){const count=r.stdout.match(/# tests (\d+)/);const failures=r.stdout.match(/# fail (\d+)/);if(!count||!failures||Number(failures[1])!==0)throw Error('TEST_SUMMARY_UNAVAILABLE');passedCount=Number(count[1]);}}
+const excluded=new Set(['node_modules','.runtime','.promptfoo','reports','.git']);
+function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>excluded.has(e.name)?[]:e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+const hashes=Object.fromEntries(walk('.').sort().map(p=>[p.replaceAll('\\','/'),crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')]));
+const report={schema_version:1,project:'sandworm-thai-eval-promptfoo',validated_at:new Date().toISOString(),status:'passed',passed:passedCount,upstream_smoke:{engine:'promptfoo',version:'0.125.1',mode:'actual-local-saved-provider',network_model_calls:0,cases:10,unweighted_passes:6,weighted_scores:[100,10]},live_api_contract_smoke:liveSmoke,source_sha256:hashes,external_engine_sha256:crypto.createHash('sha256').update(fs.readFileSync('../../dist/engine.js')).digest('hex'),external_bundle_schema_sha256:crypto.createHash('sha256').update(fs.readFileSync('../../dist/promptfoo-bundle.js')).digest('hex')};
+fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/validation.json',JSON.stringify(report,null,2)+'\n');

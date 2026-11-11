@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "project": "sandworm-thai-eval",
-  "checked_at": "2026-11-11T11:03:24.606Z",
+  "checked_at": "2026-11-11T12:38:02.672Z",
   "runtime": "v24.22.1",
   "result": "pass",
-  "tests": 40,
-  "passed": 40,
+  "tests": 50,
+  "passed": 50,
   "failed": 0,
-  "source_manifest_sha256": "ee3aac1bd929e397a246918e79f76f3f6e6de30ca24399933bbdc90d5f62d8cf",
+  "source_manifest_sha256": "f93db12091a2fc29011a3c7b3e3dfff4c5ca9a118152fbfcf2f0c048cda28fe5",
   "files": [
     {
       "path": "dist/app.js",
-      "sha256": "2abcf92716f97231aaad5c19b04011ef86d6e4a06ca9f95d885504f7b73eb508"
+      "sha256": "948be56cd06c8b454fc94bc9ce961e6b49a7984274092ec161485a2d7cbf6773"
     },
     {
       "path": "dist/engine.js",
@@ -35,7 +35,7 @@
     },
     {
       "path": "dist/index.html",
-      "sha256": "26494639a84d35f6edeb9230c609787bf87f69f0b79c8fbef65f48d83c2bf021"
+      "sha256": "9981df14fe4eb79a5a89bef8d1d52c545c334aa935b7b4b6da7efbea6ab94350"
     },
     {
       "path": "dist/mark.svg",
@@ -46,16 +46,24 @@
       "sha256": "31596a6bbc4dea95c4abc8edd7b98bd9f00bad7ef797681de1b0574cb80f0e38"
     },
     {
+      "path": "dist/promptfoo-bundle.js",
+      "sha256": "d1c40e5c1e00be6571c5f8815b9bf85a3299b873bc0fb5d438e4dbbef043357c"
+    },
+    {
       "path": "dist/styles.css",
-      "sha256": "065cf3db2797c91bac780f7240aeb54d041d21957843e68565e545e9b858f276"
+      "sha256": "0589cae625f3116bac7cfcafd70dd16a478b8f3a0b8eac224d399eb1dcedfefa"
     },
     {
       "path": "tests/controller.test.cjs",
-      "sha256": "453af740d2b764e58fe1fdf3b04c0b499e48b87b193478a9afd04c1bde4ed87f"
+      "sha256": "86b2b38b6a10084ebaa7917b7555a91c041991d6a2fd98fbc266e5d05d1c953d"
     },
     {
       "path": "tests/engine.test.cjs",
       "sha256": "70ab90af9c9528b2d81debd743d617c8283a26234f753b0ce96822e107169fc1"
+    },
+    {
+      "path": "tests/promptfoo-bundle.test.cjs",
+      "sha256": "64a8227388b17f89e10abc6bad9c45f82b0fc0ce0666d51fc91c290ac75bf02e"
     },
     {
       "path": "examples/candidates.json",

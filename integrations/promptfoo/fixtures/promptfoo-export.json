@@ -1,0 +1,145 @@
+{
+  "version": 3,
+  "results": [
+    {
+      "provider": {
+        "id": "synthetic-A",
+        "label": "synthetic-A"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "greeting"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\" สวัสดีครับ \"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-B",
+        "label": "synthetic-B"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "greeting"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"สวัสดีครับ\"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-A",
+        "label": "synthetic-A"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "support"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"กรุณาตรวจสอบเลขคำสั่งซื้อ\"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-B",
+        "label": "synthetic-B"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "support"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"กรุณาส่งรหัสผ่าน\"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-A",
+        "label": "synthetic-A"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "json-answer"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"{\\\"status\\\":\\\"ok\\\",\\\"คำตอบ\\\":\\\"พร้อมใช้งาน\\\"}\"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-B",
+        "label": "synthetic-B"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "json-answer"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"{\\\"status\\\":\\\"ok\\\"}\"}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-A",
+        "label": "synthetic-A"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "grounding"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"เมืองหลวงคือกรุงเทพมหานคร\",\"citations\":[\"city-guide-01\"]}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-B",
+        "label": "synthetic-B"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "grounding"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"เมืองหลวงคือกรุงเทพมหานคร\",\"citations\":[\"unverified-source\"]}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-A",
+        "label": "synthetic-A"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "unknown"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":false,\"text\":\"ข้อมูลไม่เพียงพอ\",\"abstained\":true}"
+      }
+    },
+    {
+      "provider": {
+        "id": "synthetic-B",
+        "label": "synthetic-B"
+      },
+      "testCase": {
+        "vars": {
+          "caseId": "unknown"
+        }
+      },
+      "response": {
+        "output": "{\"missing\":true}"
+      }
+    }
+  ]
+}

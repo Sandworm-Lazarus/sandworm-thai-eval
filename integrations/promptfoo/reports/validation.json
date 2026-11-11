@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "project": "sandworm-thai-eval-promptfoo",
+  "validated_at": "2026-11-11T12:38:05.830Z",
+  "status": "passed",
+  "passed": 30,
+  "upstream_smoke": {
+    "engine": "promptfoo",
+    "version": "0.125.1",
+    "mode": "actual-local-saved-provider",
+    "network_model_calls": 0,
+    "cases": 10,
+    "unweighted_passes": 6,
+    "weighted_scores": [
+      100,
+      10
+    ]
+  },
+  "live_api_contract_smoke": {
+    "status": "pass",
+    "engine": "promptfoo",
+    "version": "0.125.1",
+    "transport": "real-loopback-http",
+    "requests": 4,
+    "weightedScores": [
+      25,
+      100
+    ],
+    "paidModelCalls": 0,
+    "unapprovedFetchesBlocked": 1
+  },
+  "source_sha256": {
+    ".gitignore": "81b7df27b369534341f5ca98b0ff80c88970d690ac78e482dbe4f9e3345db827",
+    "README.md": "dc6bc98bdb9dbd0459d65569f96c3658085fbd8b7552246a2faa0f513ee5ef4e",
+    "assertion.cjs": "c6db095f20002889212d81c5ce402c1ef0aa4d8595ebea7fd28f2d69a4ec0a21",
+    "bridge.cjs": "831fdcb9f99af94565b4c1a9050210a54a29b6ed3778fe151f1f7644d6d8acfb",
+    "fetch-guard.cjs": "f20d97748f52b2e9422aec4de1ebd385b4e74ef441a474b0f198a7cb8cecb77d",
+    "fixtures/candidates.json": "3077388a350bf538fa063ab28cdf4c7ed0241dfa00ba613d1b45045be4da5468",
+    "fixtures/dataset.json": "fc28cfc61af4d3857f4633ac29e1fb5066878f8da2315d232c61cd38452026dd",
+    "fixtures/live-bundle.json": "b4bbb31a73e10e738b992bb80c7d4bcde00d9ecd0968de0d87d2cf0066c26311",
+    "fixtures/live-dataset.json": "2eb32c532e2120b6ce419e0cae4f9faa7517487bbe8d30f0fde16bf27b825e6a",
+    "fixtures/live-plan.json": "83d4a8d31186478a025fecaef4bbae6c563182a00bf8e504ee8c37ea718f94a5",
+    "fixtures/promptfoo-export.json": "76bdb9e6dd84c539a452613e47f96b5f5074ba3f88b6bf8f7e4930d798e97579",
+    "live-smoke.cjs": "e725a2a2a97a27cdacae294bf4351935a9b4a9c831d630c80a72eaa058e459c2",
+    "live.cjs": "402601056fdabfa0194af2d3de695e45477bc50adb632468c776197b0ecbadf9",
+    "package-lock.json": "1178b065058deb120fdb55f8df178e0563af660ca99e32e55bf91b1e6fdea962",
+    "package.json": "83a959eb8299e5bcbe4ad7b397d109661e74b971734ef37b7c7b28af1ba680ca",
+    "saved-provider.cjs": "3e6954340ffaa7acc1265468c1c09a54e9704575befcf25e27bb673a8017f872",
+    "smoke.cjs": "6e514b8a75571946a530f1fa0d601157ba303fe491e69206566ff805706333ab",
+    "tests/bridge.test.cjs": "4b2cd21abe7f44ad7459a6b7eed29635d5af90a4e0f19b19ad9bcfe713563688",
+    "tests/fetch-guard.test.cjs": "f105bcbc13003b478d79bb2ce400457c7122d850a6db4a4a85f8669e2c18437c",
+    "tests/live.test.cjs": "0cbef508ae71506a5347f5aa7cc31a6b15f8460fb661d4f3e57acc4487d710ee",
+    "validate.cjs": "4729ecec605748b7d7309a0aad074d31bf3073d7df6f36da7c40cbafeca0a043"
+  },
+  "external_engine_sha256": "7dcf1dcda00aee1844254db88ca6a68f8959936b2278e9fb03a2c055e18eb959",
+  "external_bundle_schema_sha256": "d1c40e5c1e00be6571c5f8815b9bf85a3299b873bc0fb5d438e4dbbef043357c"
+}

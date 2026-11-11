@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "thai-api-contract-synthetic-v1",
+  "cases": [
+    {"id": "greeting", "weight": 1, "assertions": {"exact": "สวัสดีครับ"}},
+    {"id": "grounding", "weight": 3, "assertions": {"contains": ["กรุงเทพมหานคร"], "citations": ["city-guide-01"]}}
+  ]
+}

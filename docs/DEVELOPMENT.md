@@ -27,3 +27,7 @@ Browser render/responsive observations, when performed by the release workflow, 
 - `tests/`: behavioral engine and controller tests.
 
 Keep new metrics explicit and version the schema before changing score semantics. Never execute submitted code inside this browser process. Real-model studies need separately collected outputs, model/configuration provenance, and representative held-out cases; the bundled fixture is not that study.
+
+## 2026-11-11 — Promptfoo live API + UI import
+
+Added an explicit opt-in Chat Completions worker, separate question/prompt plan, bounded requests and private bundle output. Promptfoo remains the actual evaluator; the existing engine recomputes canonical weighted scores. Added offline UI import, prompt metrics and comparison export. A pinned upstream telemetry-disabled feature event was observed and is blocked before transport by an exact-endpoint fetch guard. Added request/response and output safety regressions plus actual loopback HTTP smoke. See the integration README and validation receipts for test scope; visual QA of the new panel remains unavailable.

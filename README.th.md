@@ -6,7 +6,7 @@
 
 [English](README.md) · [รูปแบบไฟล์](docs/FIXTURE_FORMAT.md) · [ขอบเขตความปลอดภัย](docs/THREAT_MODEL.md)
 
-**synthetic-A / synthetic-B เป็นข้อมูลสมมติ** ไม่ใช่ผลทดสอบโมเดลจริง เครื่องมือนี้ไม่เรียก API โมเดล ไม่รันโค้ดในคำตอบ และไม่ตรวจว่าเนื้อหาในแหล่งอ้างอิงถูกต้องหรือไม่
+**synthetic-A / synthetic-B เป็นข้อมูลสมมติ** ไม่ใช่ผลทดสอบโมเดลจริง หน้าเว็บไม่เรียก API โมเดลและไม่รันโค้ดในคำตอบ ตัวรัน Promptfoo แยกสามารถเรียก API ที่คุณเลือกเมื่อเปิดโหมดเครือข่าย และไม่ตรวจว่าเนื้อหาในแหล่งอ้างอิงถูกต้องหรือไม่
 
 ## เปิดใช้งาน
 
@@ -60,3 +60,7 @@ node examples/run.cjs
 ## Sandworm tools
 
 [Skill Doctor](https://github.com/Sandworm-Lazarus/sandworm-skill-doctor) · [GameGuard Lab](https://github.com/Sandworm-Lazarus/sandworm-gameguard-lab) · [AI Run Ledger](https://github.com/Sandworm-Lazarus/sandworm-ai-run-ledger) · [Agent Gate](https://github.com/Sandworm-Lazarus/sandworm-agent-gate) · [Privacy Workbench](https://github.com/Sandworm-Lazarus/sandworm-privacy-workbench)
+
+### เพิ่ม Promptfoo API runner
+
+ใช้ [worker](integrations/promptfoo/) รัน prompt หลายรุ่นกับ API แบบ Chat Completions หรือ endpoint ที่ self-host แล้วนำไฟล์ bundle กลับมาประเมินในหน้าเดิม คะแนนคำนวณใหม่ในเบราว์เซอร์ พร้อมจำนวน API/error, token และเวลา กุญแจ API อยู่ใน environment ของ worker เท่านั้น มี preflight และจำกัดจำนวนครั้ง/ขนาด/เวลา การทดสอบใช้ Promptfoo จริงกับ mock HTTP ในเครื่อง ไม่ได้ใช้โมเดลที่คิดเงินหรือยืนยันความเข้ากันได้กับทุกผู้ให้บริการ

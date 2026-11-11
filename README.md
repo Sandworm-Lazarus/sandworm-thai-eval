@@ -6,7 +6,7 @@
 
 [ภาษาไทย](README.th.md) · [Fixture format](docs/FIXTURE_FORMAT.md) · [Threat model](docs/THREAT_MODEL.md) · [Development](docs/DEVELOPMENT.md)
 
-The bundled **synthetic-A** and **synthetic-B** answers are invented examples, not results from real AI models. This tool does not call a model, execute candidate code, verify cited source content, or provide a general model leaderboard.
+The bundled **synthetic-A** and **synthetic-B** answers are invented examples, not results from real AI models. The browser does not call a model or execute candidate code. The optional Promptfoo worker can call your selected API after explicit opt-in. Neither component verifies cited source content or provides a general model leaderboard.
 
 ## Run locally
 
@@ -84,3 +84,11 @@ Application code: [MIT](LICENSE). Fonts: SIL OFL 1.1, with [third-party notices]
 ## Sandworm tools
 
 [Skill Doctor](https://github.com/Sandworm-Lazarus/sandworm-skill-doctor) · [GameGuard Lab](https://github.com/Sandworm-Lazarus/sandworm-gameguard-lab) · [AI Run Ledger](https://github.com/Sandworm-Lazarus/sandworm-ai-run-ledger) · [Agent Gate](https://github.com/Sandworm-Lazarus/sandworm-agent-gate) · [Privacy Workbench](https://github.com/Sandworm-Lazarus/sandworm-privacy-workbench)
+
+## Optional cloud worker integration
+
+[Promptfoo saved-output and API bridge](integrations/promptfoo/README.md) adds a separately run integration with pinned upstream dependencies, synthetic fixtures, regression tests and SHA-256 validation records. See its guide for installation, privacy boundaries and verified integration scope. The browser application remains independently usable.
+
+### Promptfoo API comparison
+
+The [Promptfoo worker](integrations/promptfoo/) now runs a bounded prompt-version matrix against an explicitly selected Chat Completions endpoint, including self-hosted endpoints. Import its JSON bundle into **Thai Eval Studio → Promptfoo / API runs** to recompute weighted scores and compare API calls, errors, tokens and time. Credentials remain in the worker environment; the browser remains offline. Real Promptfoo + loopback HTTP is tested; paid/authenticated model calls and visual QA for this new panel are not claimed.

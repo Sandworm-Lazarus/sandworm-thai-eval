@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "sandworm-promptfoo-run",
+  "dataset": {
+    "schemaVersion": 1,
+    "datasetId": "thai-api-contract-synthetic-v1",
+    "cases": [
+      {
+        "id": "greeting",
+        "weight": 1,
+        "assertions": {
+          "exact": "สวัสดีครับ"
+        }
+      },
+      {
+        "id": "grounding",
+        "weight": 3,
+        "assertions": {
+          "contains": [
+            "กรุงเทพมหานคร"
+          ],
+          "citations": [
+            "city-guide-01"
+          ]
+        }
+      }
+    ]
+  },
+  "candidates": {
+    "schemaVersion": 1,
+    "models": [
+      {
+        "id": "prompt-v1",
+        "outputs": [
+          {
+            "caseId": "greeting",
+            "text": "สวัสดีครับ",
+            "citations": [],
+            "abstained": false
+          },
+          {
+            "caseId": "grounding",
+            "text": "เชียงใหม่",
+            "citations": [],
+            "abstained": false
+          }
+        ]
+      },
+      {
+        "id": "prompt-v2",
+        "outputs": [
+          {
+            "caseId": "greeting",
+            "text": "สวัสดีครับ",
+            "citations": [],
+            "abstained": false
+          },
+          {
+            "caseId": "grounding",
+            "text": "กรุงเทพมหานคร",
+            "citations": [
+              "city-guide-01"
+            ],
+            "abstained": false
+          }
+        ]
+      }
+    ]
+  },
+  "run": {
+    "engine": "promptfoo",
+    "engineVersion": "0.125.1",
+    "mode": "local-mock",
+    "model": "your-self-hosted-model",
+    "createdAt": "2026-11-11T00:00:00.000Z",
+    "plannedCalls": 4,
+    "variants": [
+      {
+        "id": "prompt-v1",
+        "promptSha256": "283a1b5e48dd3f69e8406b7252c760fea714de1f301c31c6cc81017b8b5cdd10",
+        "calls": 2,
+        "errors": 0,
+        "inputTokens": 40,
+        "outputTokens": 20,
+        "usageComplete": true,
+        "durationMs": 0,
+        "costUsd": null
+      },
+      {
+        "id": "prompt-v2",
+        "promptSha256": "905624467f22fd62d7c6f7579ef6598f8bcff64223d366148215b840f7521e52",
+        "calls": 2,
+        "errors": 0,
+        "inputTokens": 40,
+        "outputTokens": 20,
+        "usageComplete": true,
+        "durationMs": 0,
+        "costUsd": null
+      }
+    ]
+  }
+}
