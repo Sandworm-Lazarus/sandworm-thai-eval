@@ -12,14 +12,15 @@ const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&new Date(v+'T0
 function validate(r){
 try{
  fields(r,['kind','schemaVersion','experimentId','createdAt','datasetId','datasetSha256','planSha256','normalization','attempts','evaluations']);
- if(r.kind!=='sandworm-experiment/v1'||r.schemaVersion!==1||!id(r.experimentId)||!id(r.datasetId)||!hash(r.datasetSha256)||!hash(r.planSha256)||typeof r.createdAt!=='string'||!Number.isFinite(Date.parse(r.createdAt))||new Date(r.createdAt).toISOString()!==r.createdAt)fail();
+ if(r.kind!=='sandworm-experiment/v1'||r.schemaVersion!==1||!id(r.experimentId)||!id(r.datasetId)||!hash(r.datasetSha256)||!hash(r.planSha256)||typeof r.createdAt!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(r.createdAt)||!Number.isFinite(Date.parse(r.createdAt))||new Date(r.createdAt).toISOString().slice(0,19)!==r.createdAt.slice(0,19))fail();
  fields(r.normalization,['nfc','whitespace']);if(r.normalization.nfc!==true||r.normalization.whitespace!==true)fail();
  if(!Array.isArray(r.evaluations)||!r.evaluations.length||r.evaluations.length>100||!Array.isArray(r.attempts)||!r.attempts.length||r.attempts.length>200)fail();
- const evaluations=new Map(),ids=new Set(),counts=new Map(),caseSets=new Map(),successes=new Map();
+ const evaluations=new Map(),ids=new Set(),counts=new Map(),caseSets=new Map(),successes=new Map(),slots=new Set();
  for(const e of r.evaluations){
   fields(e,['id','model','variantId','promptSha256','repeat','score','expectedAttempts','completedAttempts']);
   if(!id(e.id)||evaluations.has(e.id)||!id(e.model)||e.model.length>100||!id(e.variantId)||e.variantId.length>100||!hash(e.promptSha256)||!Number.isSafeInteger(e.repeat)||e.repeat<1||e.repeat>10||typeof e.score!=='number'||!Number.isFinite(e.score)||e.score<0||e.score>100)fail();
   if(!uint(e.expectedAttempts)||e.expectedAttempts<1||e.expectedAttempts>200||!uint(e.completedAttempts)||e.completedAttempts>e.expectedAttempts)fail();
+  const slot=JSON.stringify([e.model,e.variantId,e.promptSha256,e.repeat]);if(slots.has(slot))fail();slots.add(slot);
   evaluations.set(e.id,e);caseSets.set(e.id,new Set());
  }
  for(const a of r.attempts){
@@ -43,10 +44,11 @@ try{
 function parse(raw){try{return validate(engine.parse(raw));}catch(_){fail();}}
 function summarize(reports){
  if(!Array.isArray(reports)||!reports.length||reports.length>10)fail();
- const used=new Set(),evals=new Set(),runs=new Set(),groups=new Map();let dataset=null;
+ const used=new Set(),evals=new Set(),runs=new Set(),groups=new Map();let dataset=null,referenceCases=null;
  for(const report of reports){
   const r=validate(report);
   if(dataset!==null&&dataset!==r.datasetSha256||runs.has(r.experimentId))fail();dataset=r.datasetSha256;runs.add(r.experimentId);
+  const cases=new Set(r.attempts.map(a=>a.caseId));if(referenceCases&&(cases.size!==referenceCases.size||[...cases].some(k=>!referenceCases.has(k))))fail();referenceCases=cases;
   for(const e of r.evaluations){
    if(evals.has(e.id))fail();evals.add(e.id);
    const k=JSON.stringify([e.model,e.variantId,e.promptSha256]);

@@ -106,7 +106,7 @@ function readRaw(file){
   const b=Buffer.alloc(engine.LIMITS.bytes+1);let n=0;
   while(n<b.length){const count=fs.readSync(fd,b,n,b.length-n,null);if(!count)break;n+=count;}
   if(n>engine.LIMITS.bytes)fail('INPUT_LIMIT');
-  return new TextDecoder('utf-8',{fatal:true}).decode(b.subarray(0,n));
+  return new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(b.subarray(0,n));
  }catch(e){if(e instanceof BridgeError)throw e;fail('INPUT_READ_FAILED');}finally{if(fd!==undefined)fs.closeSync(fd);}
 }
 async function main(args){

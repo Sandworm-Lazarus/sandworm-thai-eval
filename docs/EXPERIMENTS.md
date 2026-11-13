@@ -14,7 +14,7 @@ node experiment.cjs preflight your-dataset.json your-plan.json
 node experiment.cjs run your-dataset.json your-plan.json experiment.local.json --allow-network
 ```
 
-Use [the plan example](../integrations/promptfoo/fixtures/experiment-plan.json) as a schema template, replacing its model names and inputs. Every dataset case needs exactly one input with the same case ID. Evaluation expectations stay local and are never sent to the provider. Inputs and system instructions are sent to the one selected endpoint. Different model IDs must be served by that same endpoint. A different endpoint requires a separate worker run. Keys and endpoints cannot be configured in a plan.
+Use [the plan example](../integrations/promptfoo/fixtures/experiment-plan.json) as a schema template, replacing its model names and inputs. UTF-8 dataset/plan files must not contain a byte-order mark; retaining and rejecting it avoids hashing bytes different from the accepted input. Every dataset case needs exactly one input with the same case ID. Evaluation expectations stay local and are never sent to the provider. Inputs and system instructions are sent to the one selected endpoint. Different model IDs must be served by that same endpoint. A different endpoint requires a separate worker run. Keys and endpoints cannot be configured in a plan.
 
 The matrix is **models × prompt versions × repeats × dataset cases**. Maximum 10 models, 10 prompt versions, 10 repeats, 100 dataset evaluations and **200 actual HTTP requests overall**, bounded by the smaller explicit maxCalls. No retries or automatic repairs occur. Calls are sequential, each with a 100–120,000 ms timeout. There is no dollar cap. maxOutputTokens is a requested provider limit, not proof of actual billing. Preflight checks the whole matrix before loading Promptfoo or making any network request.
 
@@ -33,7 +33,7 @@ No price or usage means unknown cost, never free. Zero is an explicitly supplied
 
 ## Offline comparison
 
-Open the existing Thai Eval Studio and find **EXPERIMENT WORKBENCH**. Import up to ten reports, each <=1 MiB. Import is atomic: incompatible dataset hashes, duplicate experiment/evaluation/attempt IDs, truncated evaluation attempt sets and mismatched relationships reject the batch without replacing the previous view. A revised prompt with the same variant ID remains a separate group because the prompt SHA-256 differs.
+Open the existing Thai Eval Studio and find **EXPERIMENT WORKBENCH**. Import up to ten reports, each <=1 MiB. Import is atomic: incompatible dataset hashes, duplicate experiment/evaluation/attempt IDs, truncated evaluation attempt sets, inconsistent cross-report case sets, duplicate evaluation slots and mismatched relationships reject the batch without replacing the previous view. A revised prompt with the same variant ID remains a separate group because the prompt SHA-256 differs.
 
 Each HTTP request is an attempt. A dataset evaluation is one model × prompt × repeat. Scores are calculated with the existing canonical engine (NFC + whitespace normalization enabled); all assertions per case must pass, missing/error answers fail and retain their weight in the denominator.
 
@@ -45,7 +45,7 @@ Importing content-free reports cannot independently recompute their original sco
 
 kind = sandworm-experiment/v1; schemaVersion = 1.
 
-Top level: experimentId, createdAt (canonical ISO UTC), datasetId, datasetSha256, planSha256, normalization {nfc:true,whitespace:true}, attempts, evaluations.
+Top level: experimentId, createdAt (valid ISO UTC, optional fractional seconds), datasetId, datasetSha256, planSha256, normalization {nfc:true,whitespace:true}, attempts, evaluations.
 
 Each attempt: id, evaluationId, caseId, model, variantId, promptSha256, repeat, nullable input_tokens/output_tokens, latency_ms, status (success/error), nullable cost_usd, cost_source (unknown/provider-reported/user-rate), nullable rate_date/rate_source, score:null.
 
@@ -66,3 +66,5 @@ node integrations/promptfoo/experiment-smoke.cjs
 ```
 
 These commands are configured in the new hosted experiment workflow. Hosted checks are pending execution; this change does not claim a passing npm suite, a commercial-provider run, or visual browser QA. The pure report schema/aggregation has a small isolated V8 check, which is separate from the Node.js test suite.
+
+Cross-project fixture: examples/ledger-v1.synthetic.json is copied from AI Run Ledger commit f2da95d94ce5221b550e491aa460b9061cb5f592, examples/experiment-bundle.json. It contains synthetic values only. An isolated cloud V8 check imported the counterpart fixture; this is not a Node.js/npm or authenticated API test.

@@ -35,3 +35,19 @@ test('missing usage is unknown, never fabricated zero tokens',()=>{
  const r=copy();r.attempts[0].input_tokens=null;r.attempts[0].output_tokens=null;
  assert.equal(api.summarize([r])[0].usageCalls,0);r.attempts[0].output_tokens=2;assert.throws(()=>api.validate(r));
 });
+
+test('Ledger-produced v1 fixture imports with UTC timestamp lacking fractional seconds',()=>{
+ const r=api.parse(JSON.stringify(require('../examples/ledger-v1.synthetic.json')));
+ const groups=api.summarize([r]);assert.equal(groups.length,2);
+ const priced=groups.find(g=>g.model==='demo-indigo'),partial=groups.find(g=>g.model==='demo-saffron');
+ assert.equal(priced.scoreMean,93);assert.equal(priced.totalCostUsd,.006);
+ assert.equal(partial.scoreMean,85);assert.equal(partial.totalCostUsd,null);assert.equal(partial.pricedCalls,1);
+});
+
+test('same hash with different case sets across reports and duplicate evaluation slots rejected',()=>{
+ const a=copy(),b=copy();b.experimentId='other-exp';b.attempts[0].id='other-a';b.evaluations[0].id='other-e';b.attempts[0].evaluationId='other-e';b.attempts[0].caseId='different-case';
+ assert.throws(()=>api.summarize([a,b]));
+ const r=copy();r.evaluations.push({...r.evaluations[0],id:'duplicate-slot'});
+ r.attempts.push({...r.attempts[0],id:'duplicate-slot-a',evaluationId:'duplicate-slot'});
+ assert.throws(()=>api.validate(r));
+});
