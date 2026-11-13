@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    "your-model-a",
+    "your-model-b"
+  ],
+  "variants": [
+    {
+      "id": "concise",
+      "instruction": "Answer the request briefly."
+    },
+    {
+      "id": "careful",
+      "instruction": "Answer carefully and explicitly abstain when evidence is missing."
+    }
+  ],
+  "repeats": 2,
+  "responseFormat": "text",
+  "inputs": [
+    {
+      "caseId": "c1",
+      "text": "Replace with the input for dataset case c1."
+    }
+  ],
+  "limits": {
+    "maxCalls": 8,
+    "maxOutputTokens": 256,
+    "timeoutMs": 30000
+  },
+  "costPolicy": {
+    "providerUsageCostUsd": false,
+    "rates": []
+  }
+}

@@ -64,3 +64,7 @@ node examples/run.cjs
 ### เพิ่ม Promptfoo API runner
 
 ใช้ [worker](integrations/promptfoo/) รัน prompt หลายรุ่นกับ API แบบ Chat Completions หรือ endpoint ที่ self-host แล้วนำไฟล์ bundle กลับมาประเมินในหน้าเดิม คะแนนคำนวณใหม่ในเบราว์เซอร์ พร้อมจำนวน API/error, token และเวลา กุญแจ API อยู่ใน environment ของ worker เท่านั้น มี preflight และจำกัดจำนวนครั้ง/ขนาด/เวลา การทดสอบใช้ Promptfoo จริงกับ mock HTTP ในเครื่อง ไม่ได้ใช้โมเดลที่คิดเงินหรือยืนยันความเข้ากันได้กับทุกผู้ให้บริการ
+
+## ทดลองหลายโมเดลและรันซ้ำ
+
+[Experiment Workbench](docs/EXPERIMENTS.md) เพิ่ม worker ทดลอง โมเดล × prompt × รอบซ้ำ ภายใต้งบจำนวน call ที่กำหนด คิดราคาจากข้อมูลผู้ให้บริการที่เปิดใช้ชัดเจนหรือราคาพร้อมวันที่/แหล่งที่ผู้ใช้ป้อน ค่าใช้จ่ายที่ไม่มีข้อมูลยังเป็นไม่ทราบ หน้าเดิมนำรายงานที่ไม่มีคำตอบต้นฉบับมาเทียบได้ โดยแยก dataset/prompt hash และแสดงความครบถ้วนของ API กับราคา Hosted checks ของส่วนเพิ่มยังรอการรัน ไม่อ้างผล benchmark โมเดลจริง

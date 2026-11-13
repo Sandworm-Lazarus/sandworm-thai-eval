@@ -1,0 +1,27 @@
+name: Experiment workbench checks
+on:
+  push:
+    branches: [main, codex/experiment-workbench-20261113]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ORT_DISABLE_TELEMETRY: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      HF_HUB_OFFLINE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24.22.1'
+      - run: npm run check
+      - run: npm ci --prefix integrations/promptfoo
+      - run: npm test --prefix integrations/promptfoo
+      - run: node integrations/promptfoo/experiment-smoke.cjs

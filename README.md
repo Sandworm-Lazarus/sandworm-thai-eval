@@ -92,3 +92,7 @@ Application code: [MIT](LICENSE). Fonts: SIL OFL 1.1, with [third-party notices]
 ### Promptfoo API comparison
 
 The [Promptfoo worker](integrations/promptfoo/) now runs a bounded prompt-version matrix against an explicitly selected Chat Completions endpoint, including self-hosted endpoints. Import its JSON bundle into **Thai Eval Studio → Promptfoo / API runs** to recompute weighted scores and compare API calls, errors, tokens and time. Credentials remain in the worker environment; the browser remains offline. Real Promptfoo + loopback HTTP is tested; paid/authenticated model calls and visual QA for this new panel are not claimed.
+
+## Repeated multi-model experiments
+
+[Experiment Workbench](docs/EXPERIMENTS.md) adds a bounded multi-model × prompt × repeat worker, dated optional rate estimates and content-free reports shared with AI Run Ledger. The existing offline UI compares identical datasets, prompt hashes, complete-evaluation quality coverage and known/unknown cost coverage. Hosted checks for this extension are pending execution; no paid model benchmark is claimed.
